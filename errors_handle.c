@@ -1,69 +1,118 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors_handle.c                                    :+:      :+:    :+:   */
+/*   extract_stack.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchakir <mchakir@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amerkht <amerkht@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/17 15:36:05 by mchakir           #+#    #+#             */
-/*   Updated: 2026/02/25 02:58:18 by mchakir          ###   ########.fr       */
+/*   Created: 2025/12/25 21:46:29 by amerkht           #+#    #+#             */
+/*   Updated: 2025/12/29 22:39:44 by amerkht          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "./push_swap.h"
 
-int	error_syntax(char *str_n)
+int	some_digit(char *s)
 {
-	if (!(*str_n == '+'
-			|| *str_n == '-'
-			|| (*str_n >= '0' && *str_n <= '9')))
-		return (1);
-	if ((*str_n == '+'
-			|| *str_n == '-')
-		&& !(str_n[1] >= '0' && str_n[1] <= '9'))
-		return (1);
-	while (*++str_n)
+	while (*s)
 	{
-		if (!(*str_n >= '0' && *str_n <= '9'))
+		if (*s >= 48 && *s <= 57)
 			return (1);
+		s++;
 	}
 	return (0);
 }
 
-int	error_duplicate(t_stack_node *a, int n)
+int	valid(char *s)
 {
-	if (!a)
+	char	*bf;
+
+	bf = s;
+	if (*bf == '-' || *bf == '+')
+		bf++;
+	if (*bf == '\0')
 		return (0);
-	while (a)
+	while (*bf)
 	{
-		if (a->value == n)
+		if (!(*bf >= 48 && *bf <= 57))
+			return (0);
+		bf++;
+	}
+	if (!some_digit(s))
+		return (0);
+	return (1);
+}
+
+int	long_num(char *s)
+{
+	if (ft_atoi(s) > 2147483647 || ft_atoi(s) < -2147483648)
+		return (1);
+	return (0);
+}
+
+int	empty_args(int count, char **av)
+{
+	int	i;
+	int	j;
+
+	i = 1;
+	while (i < count)
+	{
+		j = 0;
+		if (av[i][j] == '\0')
 			return (1);
-		a = a->next;
+		while (av[i][j])
+		{
+			if (av[i][j] != ' ')
+				break ;
+			j++;
+		}
+		if (av[i][j] == '\0')
+			return (1);
+		i++;
 	}
 	return (0);
 }
 
-void	free_stack(t_stack_node **stack)
+int in_stack(int a, t_stack_node **st)
 {
-	t_stack_node	*tmp;
-	t_stack_node	*current;
+	t_stack_node *cur;
 
-	if (!stack)
-		return ;
-	current = *stack;
-	while (current)
+	cur = *st;
+	while (cur)
 	{
-		tmp = current->next;
-		current->value = 0;
-		free(current);
-		current = tmp;
+		if (cur->value == a)
+		{
+			return (1);
+		}
+		cur = cur->next;
 	}
-	*stack = NULL;
+	return (0);
 }
 
-void	free_errors(t_stack_node **a)
+t_stack_node  *extract_stack(t_stack_node *st, int count, char **av)
 {
-	free_stack(a);
-	write(2, "Error\n", 6);
-	exit(1);
+	int		i;
+	char	**splited_arr;
+	char	**buffer;
+
+	i = 0;
+	if (!st || !av || !*av)
+		return (NULL);
+	if (empty_args(count, av))
+		return (free(st), NULL);
+	while (++i < count)
+	{
+		splited_arr = ft_split(av[i], ' ');
+		buffer = splited_arr;
+		while (*splited_arr != NULL)
+		{
+			if (!valid(*splited_arr) || in_stack(ft_atoi(*splited_arr), &st)
+				|| long_num(*splited_arr))
+				return (free_split(buffer), free_stack(&st), NULL);
+			append_node(&st, ft_atoi(*splited_arr++));
+		}
+		free_split(buffer);
+	}
+	return (st);	
 }

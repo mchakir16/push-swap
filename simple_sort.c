@@ -6,7 +6,7 @@
 /*   By: mchakir <mchakir@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 23:14:58 by mnassiri          #+#    #+#             */
-/*   Updated: 2026/02/26 01:35:25 by mchakir          ###   ########.fr       */
+/*   Updated: 2026/03/09 15:58:36 by mchakir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static int	get_min(t_stack_node **stack, int val)
 	min = -1;
 	while (head)
 	{
-		if (head->index != val && (min == -1
-				|| head->index < min))
+		if (head->index != val && (min == -1 || head->index < min))
+				
 			min = head->index;
 		head = head->next;
 	}

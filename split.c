@@ -6,7 +6,7 @@
 /*   By: mchakir <mchakir@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 21:38:16 by mchakir           #+#    #+#             */
-/*   Updated: 2026/03/09 23:58:48 by mchakir          ###   ########.fr       */
+/*   Updated: 2026/03/12 03:05:04 by mchakir          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,29 +89,34 @@ char	**ft_split(char *str, char separator)
  */
 
 
-
- #include "push_swap.h"
-
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+#include "push_swap.h"
+size_t ft_strlen(const char *s)
 {
-	size_t	src_len;
+   int i;
 
-	src_len = 0;
-	while (src[src_len])
-		src_len++;
-	if (dstsize <= 0)
-		return (src_len);
-	dstsize -= 1;
-	while (*src && dstsize-- > 0)
-	{
-		*dst = *src;
-		dst++;
-		src++;
-	}
-	*dst = '\0';
-	return (src_len);
+   i = 0;
+   while (*s++)
+	   i++;
+   return (i);
 }
- 
+
+static size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+{
+   size_t	i;
+
+   i = 0;
+   if (size == 0)
+	   return (ft_strlen(src));
+   while (i < size - 1 && src[i])
+   {
+	   dst[i] = src[i];
+	   i++;
+   }
+   if (size > 0)
+	   dst[i] = '\0';
+   return (ft_strlen(src));
+}
+
 static char	**mem_free(char **poof)
 {
 	int	i;
@@ -207,3 +212,4 @@ char	**ft_split(const char *str, char sep)
 	result[i] = NULL;
 	return (result);
 }
+
