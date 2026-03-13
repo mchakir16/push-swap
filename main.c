@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchakir <mchakir@student.42.fr>            +#+  +:+       +#+        */
+/*   By: negane <negane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 16:41:02 by mchakir           #+#    #+#             */
-/*   Updated: 2026/03/12 02:59:41 by mchakir          ###   ########.fr       */
+/*   Updated: 2026/03/12 22:29:11 by negane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,12 @@ void	sorting(t_stack_node **a, t_stack_node **b)
 		radix_sort(a, b);
 }
 
-
 int	main(int argc, char **argv)
 {
 	t_stack_node	*a;
 	t_stack_node	*b;
-	int 	i;
 
+	// int 	i;
 	a = NULL;
 	b = NULL;
 	if (argc == 1)
@@ -82,9 +81,9 @@ int	main(int argc, char **argv)
 	// else if (argc == 2)
 	// 	argv = ft_split(argv[1], ' ');
 	// if (!argv)
-		// return (write(2, "Error\n", 6), 0);
+	// return (write(2, "Error\n", 6), 0);
 	// ft_split(argv[i], ' ')[0]
-	a = extract_stack(a, argc,  argv);
+	a = extract_stack(a, argc, argv);
 	if (!a)
 		return (write(2, "Error\n", 6), 0);
 	// init_stack_a(&a, argv + 1);

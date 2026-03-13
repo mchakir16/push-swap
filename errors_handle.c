@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   extract_stack.c                                    :+:      :+:    :+:   */
+/*   errors_handle.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amerkht <amerkht@student.42.fr>            +#+  +:+       +#+        */
+/*   By: negane <negane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/25 21:46:29 by amerkht           #+#    #+#             */
-/*   Updated: 2025/12/29 22:39:44 by amerkht          ###   ########.fr       */
+/*   Updated: 2026/03/12 23:17:51 by negane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./push_swap.h"
+#include "push_swap.h"
 
 int	some_digit(char *s)
 {
@@ -74,9 +74,9 @@ int	empty_args(int count, char **av)
 	return (0);
 }
 
-int in_stack(int a, t_stack_node **st)
+int	in_stack(int a, t_stack_node **st)
 {
-	t_stack_node *cur;
+	t_stack_node	*cur;
 
 	cur = *st;
 	while (cur)
@@ -88,31 +88,4 @@ int in_stack(int a, t_stack_node **st)
 		cur = cur->next;
 	}
 	return (0);
-}
-
-t_stack_node  *extract_stack(t_stack_node *st, int count, char **av)
-{
-	int		i;
-	char	**splited_arr;
-	char	**buffer;
-
-	i = 0;
-	if (!st || !av || !*av)
-		return (NULL);
-	if (empty_args(count, av))
-		return (free(st), NULL);
-	while (++i < count)
-	{
-		splited_arr = ft_split(av[i], ' ');
-		buffer = splited_arr;
-		while (*splited_arr != NULL)
-		{
-			if (!valid(*splited_arr) || in_stack(ft_atoi(*splited_arr), &st)
-				|| long_num(*splited_arr))
-				return (free_split(buffer), free_stack(&st), NULL);
-			append_node(&st, ft_atoi(*splited_arr++));
-		}
-		free_split(buffer);
-	}
-	return (st);	
 }

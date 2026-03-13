@@ -1,42 +1,17 @@
-// /* ************************************************************************** */
-// /*                                                                            */
-// /*                                                        :::      ::::::::   */
-// /*   init_stack.c                                       :+:      :+:    :+:   */
-// /*                                                    +:+ +:+         +:+     */
-// /*   By: mchakir <mchakir@student.42.fr>            +#+  +:+       +#+        */
-// /*                                                +#+#+#+#+#+   +#+           */
-// /*   Created: 2026/02/17 22:09:32 by mchakir           #+#    #+#             */
-// /*   Updated: 2026/02/22 14:42:19 by mchakir          ###   ########.fr       */
-// /*                                                                            */
-// /* ************************************************************************** */
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_stack.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: negane <negane@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/14 16:41:02 by mchakir           #+#    #+#             */
+/*   Updated: 2026/03/12 23:20:12 by negane           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
-// int	ft_isdigit(int c)
-// {
-// 	return (c >= '0' && c <= '9');
-// }
-
-// static long	ft_atol(const char *s)
-// {
-// 	long	result;
-// 	int		sign;
-
-// 	result = 0;
-// 	sign = 1;
-// 	while (*s == ' ' || *s == '\t' || *s == '\n' || *s == '\r' || *s == '\f'
-// 		|| *s == '\v')
-// 		s++;
-// 	if (*s == '-' || *s == '+')
-// 	{
-// 		if (*s == '-')
-// 			sign = -1;
-// 		s++;
-// 	}
-// 	while (ft_isdigit(*s))
-// 		result = result * 10 + (*s++ - '0');
-// 	return (result * sign);
-// }
 long	ft_atoi(char *str)
 {
 	long	sum;
@@ -85,30 +60,10 @@ void	append_node(t_stack_node **stack, int n)
 	}
 }
 
-// void	init_stack_a(t_stack_node **a, char **argv)
-// {
-// 	long	n;
-// 	int		i;
-
-// 	i = 0;
-// 	while (argv[i])
-// 	{
-// 		if (error_syntax(argv[i]))
-// 			free_errors(a);
-// 		n = ft_atol(argv[i]);
-// 		if (n > INT_MAX || n < INT_MIN)
-// 			free_errors(a);
-// 		if (error_duplicate(*a, (int)n))
-// 			free_errors(a);
-// 		append_node(a, (int)n);
-// 		i++;
-// 	}
-// }
-
-void free_stack(t_stack_node **head)
+void	free_stack(t_stack_node **head)
 {
-	t_stack_node *cur;
-	t_stack_node *tmp;
+	t_stack_node	*cur;
+	t_stack_node	*tmp;
 
 	cur = *head;
 	while (cur)
@@ -118,4 +73,31 @@ void free_stack(t_stack_node **head)
 		free(tmp);
 	}
 	*head = NULL;
+}
+
+t_stack_node	*extract_stack(t_stack_node *st, int count, char **av)
+{
+	int		i;
+	char	**splited_arr;
+	char	**buffer;
+
+	i = 0;
+	// if (!st || !av || !*av)
+	//	return (NULL);
+	if (empty_args(count, av))
+		return (free(st), NULL);
+	while (++i < count)
+	{
+		splited_arr = ft_split(av[i], ' ');
+		buffer = splited_arr;
+		while (*splited_arr != NULL)
+		{
+			if (!valid(*splited_arr) || in_stack(ft_atoi(*splited_arr), &st)
+				|| long_num(*splited_arr))
+				return (free_split(buffer), free_stack(&st), NULL);
+			append_node(&st, ft_atoi(*splited_arr++));
+		}
+		free_split(buffer);
+	}
+	return (st);
 }
