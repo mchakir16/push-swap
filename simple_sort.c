@@ -22,7 +22,6 @@ static int	get_min(t_stack_node **stack, int val)
 	while (head)
 	{
 		if (head->index != val && (min == -1 || head->index < min))
-				
 			min = head->index;
 		head = head->next;
 	}

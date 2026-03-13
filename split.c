@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchakir <mchakir@student.42.fr>            +#+  +:+       +#+        */
+/*   By: negane <negane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 21:38:16 by mchakir           #+#    #+#             */
-/*   Updated: 2026/03/12 03:05:04 by mchakir          ###   ########.fr       */
+/*   Updated: 2026/03/12 23:08:48 by negane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,33 +88,23 @@ char	**ft_split(char *str, char separator)
 }
  */
 
-
 #include "push_swap.h"
-size_t ft_strlen(const char *s)
-{
-   int i;
-
-   i = 0;
-   while (*s++)
-	   i++;
-   return (i);
-}
 
 static size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-   size_t	i;
+	size_t	i;
 
-   i = 0;
-   if (size == 0)
-	   return (ft_strlen(src));
-   while (i < size - 1 && src[i])
-   {
-	   dst[i] = src[i];
-	   i++;
-   }
-   if (size > 0)
-	   dst[i] = '\0';
-   return (ft_strlen(src));
+	i = 0;
+	if (size == 0)
+		return (ft_strlen(src));
+	while (i < size - 1 && src[i])
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	if (size > 0)
+		dst[i] = '\0';
+	return (ft_strlen(src));
 }
 
 static char	**mem_free(char **poof)
@@ -170,21 +160,6 @@ static void	locate_words(char **cursor, size_t *word_len, char sep)
 	}
 }
 
-void	free_split(char **args)
-{
-	int	i;
-
-	if (!args)
-		return ;
-	i = 0;
-	while (args[i])
-	{
-		free(args[i]);
-		i++;
-	}
-	free(args);
-}
-
 char	**ft_split(const char *str, char sep)
 {
 	char	**result;
@@ -212,4 +187,3 @@ char	**ft_split(const char *str, char sep)
 	result[i] = NULL;
 	return (result);
 }
-

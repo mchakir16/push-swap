@@ -1,39 +1,32 @@
 NAME = push_swap
 
-CC = cc
+	CC = cc
 
-CFLAGS = -Wall -Wextra -Werror
+		CFLAGS = -Wall - Wextra -
+	Werror
 
-RM = rm -f
+		RM = rm -
+	f
 
-SRCS = main.c \
-	errors_handle.c \
-	init_stack.c \
-	push.c \
-	radix_algo.c \
-	reverse_rotate.c \
-	rotate.c \
-	simple_sort.c \
-	split.c \
-	stack_utils.c \
-	swap.c
+		SRCS = main.c errors_handle.c init_stack.c push.c radix_algo.c reverse_rotate.c rotate.c simple_sort.c split.c stack_utils.c swap.c split_utils.c
 
-OBJ = $(SRCS:.c=.o)
+					OBJ = $(SRCS
+							:.c =.o)
 
-all: $(NAME)
+								all : $(NAME)
 
-$(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+										$(NAME)
+	: $(OBJ) $(CC) $(CFLAGS) $(OBJ) -
+		o $(NAME)
 
-%.o: %.c push_swap.h
-	$(CC) $(CFLAGS) -c $< -o $@
+			%.o : %.c push_swap.h $(CC) $(CFLAGS) -
+		c $ <
+	-o $ @
 
-clean:
-	$(RM) $(OBJ)
+		clean : $(RM) $(OBJ)
 
-fclean: clean
-	$(RM) $(NAME)
+					fclean : clean $(RM) $(NAME)
 
-re: fclean all
+								re : fclean all
 
-.PHONY: all clean fclean re
+										.PHONY : all clean fclean re
